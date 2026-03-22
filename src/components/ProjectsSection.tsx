@@ -3,6 +3,8 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import projectEcommerce from "@/assets/project-ecommerce.jpg";
 import projectPowergrid from "@/assets/project-powergrid.jpg";
 
+const isValidLiveUrl = (url: string) => Boolean(url && url !== "#");
+
 const projects = [
   {
     title: "E-Commerce Platform",
@@ -11,7 +13,7 @@ const projects = [
       "A complete e-commerce solution with product management, shopping cart, user authentication, and payment integration built with a modern JavaScript stack.",
     tags: ["JavaScript", "React", "Node.js", "MongoDB"],
     image: projectEcommerce,
-    liveUrl: "#",
+    liveUrl: "https://e-commerce-platform-b3x2.vercel.app/",
     githubUrl: "https://github.com/Shubhamkumar000/E-commerce-platform",
     featured: true,
   },
@@ -23,7 +25,7 @@ const projects = [
     tags: ["Next.js", "AI/ML", "Python", "Data Analytics"],
     image: projectPowergrid,
     liveUrl: "https://power-grid-iota.vercel.app/",
-    githubUrl: "#",
+    githubUrl: "https://github.com/Shubhamkumar000/PowerGrid",
     featured: true,
   },
 ];
@@ -78,7 +80,7 @@ const ProjectsSection = () => {
                       <Github className="w-4 h-4" />
                     </a>
                   )}
-                  {project.liveUrl && (
+                  {isValidLiveUrl(project.liveUrl) && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
@@ -98,7 +100,20 @@ const ProjectsSection = () => {
                   </p>
                   <h3 className="font-display text-2xl md:text-4xl font-bold mb-3 flex items-center gap-2">
                     {project.title}
-                    <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all text-primary" />
+                    {isValidLiveUrl(project.liveUrl) ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex rounded-sm text-primary opacity-0 transition-all group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        aria-label={`Open ${project.title} live site`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ArrowUpRight className="w-5 h-5" />
+                      </a>
+                    ) : (
+                      <ArrowUpRight className="w-5 h-5 opacity-0 transition-all group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 text-primary" aria-hidden />
+                    )}
                   </h3>
                   <p className="text-muted-foreground font-body text-sm md:text-base max-w-xl leading-relaxed mb-4">
                     {project.description}
